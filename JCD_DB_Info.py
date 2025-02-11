@@ -1,0 +1,5 @@
+USER = 'mark'
+PASSWORD = 'Johndeere10!'
+PORT = '3306'
+DB = 'database-download-jc-decaux'
+URI = 'database-download-jc-decaux.cp42yssukjwp.eu-west-1.rds.amazonaws.com'
