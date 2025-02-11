@@ -1,14 +1,13 @@
 import requests
 import traceback
 import json
-import sqlalchemy #this stays here
-from sqlalchemy import create_engine, text as sql_text  # I have to do this for conflict checks of functions
+import sqlalchemy  # this stays here
+from sqlalchemy import create_engine, text as sql_text  # Conflict checks for functions
 import JCD_DB_Info
 import JCD_API_Info
 
 def stations_to_db(text_data, engine): 
-    """Parse, print, and insert station data into the database. Also the code is built to avoid duplicates."""
-    
+    """Parse, print, and insert station data into the database while avoiding duplicates."""
     try:
         stations = json.loads(text_data)
         print(f"Loaded {len(stations)} stations\n")
@@ -20,7 +19,9 @@ def stations_to_db(text_data, engine):
                     int(station.get('banking', 0)),
                     int(station.get('bike_stands', 0)),
                     station.get('name', 'Unknown'),
-                    station.get('status', 'Unknown')
+                    station.get('status', 'Unknown'),
+                    float(station.get('position', {}).get('lat', 0.0)),  # New column: position_lat
+                    float(station.get('position', {}).get('lng', 0.0))   # New column: position_lng
                 )
 
                 print(vals) 
@@ -31,17 +32,18 @@ def stations_to_db(text_data, engine):
 
                 if query_result == 0:
                     insert_query = """
-                        INSERT INTO station (address, banking, bike_stands, name, status)
-                        VALUES (:address, :banking, :bike_stands, :name, :status)
+                        INSERT INTO station (address, banking, bike_stands, name, status, position_lat, position_lng)
+                        VALUES (:address, :banking, :bike_stands, :name, :status, :position_lat, :position_lng)
                     """
 
- 
                     conn.execute(sqlalchemy.text(insert_query), {
                         "address": vals[0], 
                         "banking": vals[1], 
                         "bike_stands": vals[2],
                         "name": vals[3], 
-                        "status": vals[4]
+                        "status": vals[4],
+                        "position_lat": vals[5],
+                        "position_lng": vals[6]
                     })
 
                     print(f"Inserted: {vals[3]}")
@@ -51,14 +53,12 @@ def stations_to_db(text_data, engine):
             conn.commit()
         
         print("\nData insertion completed!\n")
-
     except Exception as e:
         print("Error processing data:", e)
         print(traceback.format_exc())
 
 def main():
     """Fetch JCDecaux station data once and insert into the database."""
-    
     USER = JCD_DB_Info.USER
     PASSWORD = JCD_DB_Info.PASSWORD
     PORT = JCD_DB_Info.PORT
@@ -72,7 +72,6 @@ def main():
         response = requests.get(JCD_API_Info.STATIONS_URI, params={"apiKey": JCD_API_Info.JCKEY, "contract": JCD_API_Info.NAME})
         response.raise_for_status()
         stations_to_db(response.text, engine)
-
     except requests.exceptions.RequestException as e:
         print(f"Error fetching data: {e}")
 

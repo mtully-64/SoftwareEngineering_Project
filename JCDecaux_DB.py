@@ -19,7 +19,10 @@ CREATE TABLE IF NOT EXISTS station (
     banking INTEGER,
     bike_stands INTEGER,
     name VARCHAR(256),
-    status VARCHAR(256)
+    status VARCHAR(256),
+    position_lat FLOAT,
+    position_lng FLOAT,
+    PRIMARY KEY (number)
 )
 """)
 
@@ -29,7 +32,9 @@ CREATE TABLE IF NOT EXISTS availability (
     number INTEGER,
     available_bikes INTEGER,
     available_bike_stands INTEGER,
-    last_update DATETIME
+    last_update DATETIME,
+    status VARCHAR(128),
+    PRIMARY KEY (number, last_update)
 )
 """)
 
