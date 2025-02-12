@@ -28,8 +28,9 @@ def stations_to_db(text_data, engine):
                 )
 
                 # Check if the station already exists
-                check_query = "SELECT COUNT(*) FROM station WHERE name = :name" 
-                query_result = conn.execute(sql_text(check_query), {"name": vals[3]}).scalar()
+                check_query = "SELECT COUNT(*) FROM station WHERE number = :number"
+                query_result = conn.execute(sql_text(check_query), {"number": station.get('number')}).scalar()
+
 
                 if query_result == 0:
                     insert_query = """
