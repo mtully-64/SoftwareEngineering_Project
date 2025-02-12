@@ -15,11 +15,12 @@ engine = create_engine(connection_string, echo=True)
 # MySQL command to create the 'station' table
 station_sql = text("""
 CREATE TABLE IF NOT EXISTS station (
-    address VARCHAR(256),
+    number INTEGER NOT NULL,
+    address VARCHAR(128),
     banking INTEGER,
     bike_stands INTEGER,
     name VARCHAR(256),
-    status VARCHAR(256),
+    status VARCHAR(128),
     position_lat FLOAT,
     position_lng FLOAT,
     PRIMARY KEY (number)
@@ -29,12 +30,13 @@ CREATE TABLE IF NOT EXISTS station (
 # MySQL command to create the 'availability' table
 availability_sql = text("""
 CREATE TABLE IF NOT EXISTS availability (
-    number INTEGER,
+    number INTEGER NOT NULL,
     available_bikes INTEGER,
     available_bike_stands INTEGER,
-    last_update DATETIME,
+    last_update DATETIME NOT NULL,
     status VARCHAR(128),
-    PRIMARY KEY (number, last_update)
+    PRIMARY KEY (number, last_update),
+    FOREIGN KEY (number) REFERENCES station(number) ON DELETE CASCADE
 )
 """)
 
