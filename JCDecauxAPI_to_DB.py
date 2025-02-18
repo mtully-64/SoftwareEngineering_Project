@@ -17,15 +17,27 @@ def stations_to_db(text_data, engine):
 
         with engine.connect() as conn:
             for station in stations:
+                # vals = (
+                #     int(station.get('number', 0)),
+                #     station.get('address', 'N/A'),
+                #     int(station.get('banking', 0)),
+                #     int(station.get('bike_stands', 0)),
+                #     station.get('name', 'Unknown'),
+                #     station.get('status', 'Unknown'),
+                #     float(station.get('position', {}).get('lat', 0.0)), 
+                #     float(station.get('position', {}).get('lng', 0.0))  
+                # )
                 vals = (
-                    station.get('address', 'N/A'),
-                    int(station.get('banking', 0)),
-                    int(station.get('bike_stands', 0)),
-                    station.get('name', 'Unknown'),
-                    station.get('status', 'Unknown'),
-                    float(station.get('position', {}).get('lat', 0.0)), 
-                    float(station.get('position', {}).get('lng', 0.0))  
-                )
+    int(station.get('number', 0)),  # 正确获取 number
+    station.get('address', 'N/A'),  # address
+    int(station.get('banking', 0)),  # banking
+    int(station.get('bike_stands', 0)),  # bike_stands
+    station.get('name', 'Unknown'),  # name
+    station.get('status', 'Unknown'),  # status
+    float(station.get('position', {}).get('lat', 0.0)),  # position_lat
+    float(station.get('position', {}).get('lng', 0.0))   # position_lng
+)
+
 
                 # Check if the station already exists
                 check_query = "SELECT COUNT(*) FROM station WHERE number = :number"
@@ -34,17 +46,28 @@ def stations_to_db(text_data, engine):
 
                 if query_result == 0:
                     insert_query = """
-                        INSERT INTO station (address, banking, bike_stands, name, status, position_lat, position_lng)
-                        VALUES (:address, :banking, :bike_stands, :name, :status, :position_lat, :position_lng)
+                        INSERT INTO station (number, address, banking, bike_stands, name, status, position_lat, position_lng)
+VALUES (:number, :address, :banking, :bike_stands, :name, :status, :position_lat, :position_lng)
                     """
+                    # conn.execute(sql_text(insert_query), {
+                    #     "number": vals[0],  # 添加 number
+                    #     "address": vals[0], 
+                    #     "banking": vals[1], 
+                    #     "bike_stands": vals[2],
+                    #     "name": vals[3], 
+                    #     "status": vals[4],
+                    #     "position_lat": vals[5],
+                    #     "position_lng": vals[6]
+                    # })
                     conn.execute(sql_text(insert_query), {
-                        "address": vals[0], 
-                        "banking": vals[1], 
-                        "bike_stands": vals[2],
-                        "name": vals[3], 
-                        "status": vals[4],
-                        "position_lat": vals[5],
-                        "position_lng": vals[6]
+                        "number": vals[0],
+                        "address": vals[1], 
+                        "banking": vals[2], 
+                        "bike_stands": vals[3],
+                        "name": vals[4], 
+                        "status": vals[5],
+                        "position_lat": vals[6],
+                        "position_lng": vals[7]
                     })
                     print(f"Inserted new station: {vals[3]}")
                 else:
