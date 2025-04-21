@@ -25,9 +25,9 @@ This project is designed to provide a dynamic and interactive web application th
 - Tully, Mark: [Github](https://github.com/mtully-64)
 
 ## Teamwork documents
-- [Productbacklog](https://docs.google.com/spreadsheets/d/16UwcQbcadPkZ1scV0lyiCs6AiAEB3XSC/edit?usp=drive_link&ouid=112237875983919582220&rtpof=true&sd=true)
+- [Product Backlog](https://docs.google.com/spreadsheets/d/16UwcQbcadPkZ1scV0lyiCs6AiAEB3XSC/edit?usp=drive_link&ouid=112237875983919582220&rtpof=true&sd=true)
 - [Prototype](https://docs.google.com/document/d/18HzMUOzncuRlrWLbt86iPlJQJVkGYof_qcaVSPj_3qQ/edit?usp=drive_link)
-- [Final-Report](https://docs.google.com/document/d/1rypzkfCm6ORaso-Ue8xvx0rVFUfZegF0/edit?usp=drive_link&ouid=112237875983919582220&rtpof=true&sd=true)
+- [Final Report](https://docs.google.com/document/d/1rypzkfCm6ORaso-Ue8xvx0rVFUfZegF0/edit?usp=drive_link&ouid=112237875983919582220&rtpof=true&sd=true)
 - Agile development sprint
   - [Sprint-1](https://drive.google.com/drive/folders/1cOePYkNI5SOnX8Wt5xpU7auCBZ7IjExV?usp=drive_link)
   - [Sprint-2](https://drive.google.com/drive/folders/1EhuQown5CMib7F2gshE2jy7KILHeMOCB?usp=drive_link)
