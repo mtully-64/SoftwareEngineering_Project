@@ -1,0 +1,12 @@
+# Ignore sensitive files
+config.json
+.env
+settings.ini
+dublinbikes-firebase-config.json
+JCD_API_Info.py
+JCD_DB_Info.py
+JCD_DB_local.py
+OpenWeather_API_Info.py
+firebase-config.js
+.DS_Store
+__pycache__
