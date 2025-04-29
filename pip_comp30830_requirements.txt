@@ -35,7 +35,7 @@ ipykernel==6.29.5
 ipython==8.32.0
 itsdangerous==2.2.0
 jedi==0.19.2
-Jinja2==3.1.5
+Jinja2==3.1.6
 joblib==1.4.2
 jupyter_client==8.6.3
 jupyter_core==5.7.2
@@ -75,7 +75,6 @@ scipy==1.15.2
 setuptools==72.1.0
 simplejson==3.19.3
 six==1.16.0
-spotipy==2.25.0
 SQLAlchemy==2.0.37
 stack-data==0.2.0
 threadpoolctl==3.6.0
